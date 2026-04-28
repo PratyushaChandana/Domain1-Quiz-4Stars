@@ -1,2 +1,2 @@
-# Domain1-Quiz-4Stars
+# index.html
 Team 4Stars IT Quiz

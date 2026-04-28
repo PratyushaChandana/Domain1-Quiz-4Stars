@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain1 Mobile Devices Quiz by Team 4Stars</title>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --success: #28a745;
+            --danger: #dc3545;
+            --bg: #f8f9fa;
+            --text: #202124;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; padding: 20px; line-height: 1.6; }
+        #quiz-container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); max-width: 800px; width: 100%; }
+        .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 25px; padding-bottom: 15px; }
+        .header h1 { margin: 0; font-size: 1.8rem; color: var(--primary); }
+        .author-info { font-weight: bold; color: #5f6368; margin-top: 5px; }
+        .question-meta { font-size: 0.85rem; color: #70757a; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; }
+        .question-text { font-size: 1.2rem; margin-bottom: 25px; font-weight: 600; }
+        .option { display: block; background: #fff; padding: 15px; margin: 12px 0; border-radius: 8px; cursor: pointer; transition: 0.2s; border: 2px solid #dadce0; font-size: 1rem; }
+        .option:hover { background: #f1f3f4; border-color: var(--primary); }
+        .correct { background: #e6f4ea !important; border-color: var(--success) !important; color: #137333; font-weight: bold; }
+        .wrong { background: #fce8e6 !important; border-color: var(--danger) !important; color: #c5221f; }
+        #explanation { display: none; margin-top: 20px; padding: 20px; background: #fff3cd; border-left: 5px solid #ffc107; border-radius: 4px; }
+        #next-btn { display: none; background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 6px; cursor: pointer; float: right; margin-top: 20px; font-weight: bold; }
+        #result-screen { display: none; text-align: center; padding: 50px 0; }
+        .progress { margin-bottom: 20px; font-size: 0.9rem; color: #70757a; }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div class="header">
+        <h1>Domain1 Mobile Devices Quiz</h1>
+        <div class="author-info">By Team "4Stars" (Hassan, Pratyusha, Zeenab, Mikyas)</div>
+    </div>
+
+    <div id="quiz-content">
+        <div class="progress" id="progress-text"></div>
+        <div class="question-meta" id="q-id"></div>
+        <div class="question-text" id="q-text"></div>
+        <div id="options-list"></div>
+        <div id="explanation"></div>
+        <button id="next-btn" onclick="nextQuestion()">Next Question &rarr;</button>
+    </div>
+
+    <div id="result-screen">
+        <h2>Quiz Finished!</h2>
+        <p style="font-size: 2rem; font-weight: bold;" id="final-score"></p>
+        <button onclick="location.reload()" style="padding: 10px 25px; cursor:pointer; background:var(--primary); color:white; border:none; border-radius:5px;">Take Quiz Again</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        // ZEENAB
+        { id: "(Z1)", author: "Zeenab", q: "Which of the following correctly describes the difference between a port replicator and a docking station?", a: ["A port replicator supports wireless connections; a docking station does not", "A docking station can add new functionality not already built into the laptop; a port replicator only duplicates existing ports", "A port replicator is faster than a docking station", "A docking station is only used with desktop computers"], c: 1, e: "A docking station can add additional functionality such as extra video outputs, expansion slots, or charging capabilities. A port replicator mainly mirrors existing ports." },
+        { id: "(Z2)", author: "Zeenab", q: "A corporate smartphone syncs email successfully on Wi‑Fi but fails when using cellular data. Which of the following is the MOST likely cause?", a: ["Bluetooth is disabled", "An MDM policy blocks synchronization over cellular networks", "The cloud account was deleted", "The device requires a factory reset"], c: 1, e: "Mobile Device Management (MDM) policies can restrict synchronization over cellular networks to reduce security risks or data usage." },
+        { id: "(Z3)", author: "Zeenab", q: "A user wants their Android device to automatically back up photos and app data without using their cellular data plan. Which setting should be enabled?", a: ["Backup over 5G only", "Bluetooth synchronization", "Configure backups to run over Wi‑Fi only", "Disable cloud backups"], c: 2, e: "Wi‑Fi-only backups prevent cellular data usage while still allowing automatic cloud backups." },
+        { id: "(Z4)", author: "Zeenab", q: "An employee reports their company-issued smartphone was stolen. The device contains sensitive company data. Which action should the IT department perform FIRST?", a: ["Disable Wi‑Fi remotely", "Remote wipe", "Reset the employee password", "Revoke SSO access only"], c: 1, e: "A remote wipe removes sensitive data from the stolen device and prevents unauthorized access." },
+        { id: "(Z5)", author: "Zeenab", q: "A Bluetooth headset keeps disconnecting from a laptop. The headset is a Class 2 Bluetooth device. What is the MOST likely cause?", a: ["The headset uses 5 GHz frequencies", "The headset is incompatible with Wi‑Fi 6", "The devices are more than 10 meters apart", "The Bluetooth version is outdated"], c: 2, e: "Bluetooth Class 2 devices typically support a maximum range of about 10 meters (33 feet)." },
+        { id: "(Z6) PBQ", author: "Zeenab", q: "A technician is replacing a damaged miniPCIe wireless card in a laptop. Place the following steps in the correct order:\nA. Power on/Verify connectivity | B. Shut down/Unplug | C. Attach antennas | D. Remove damaged card | E. Insert replacement | F. Install drivers", a: ["B, D, E, C, F, A", "A, B, C, D, E, F", "B, E, D, C, F, A", "D, B, E, C, F, A"], c: 0, e: "Safety first: Shutdown/Unplug (B), Remove (D), Insert (E), Attach Antennas (C), Install Drivers (F), and finally Verify (A)." },
+        
+        // MIKYAS
+        { id: "(M1)", author: "Mikyas", q: "A user wants to transfer files between two smartphones by placing them a few centimeters apart. Which technology should be used?", a: ["Bluetooth", "Wi‑Fi Direct", "NFC", "Infrared"], c: 2, e: "Near Field Communication (NFC) allows very short-range communication by tapping devices together." },
+        { id: "(M2)", author: "Mikyas", q: "Which wireless technology typically requires a PIN during pairing before devices can communicate?", a: ["NFC", "Infrared", "Bluetooth", "RFID"], c: 2, e: "Bluetooth pairing commonly uses a PIN or pairing code for authentication." },
+        { id: "(M3)", author: "Mikyas", q: "A user wants to share their smartphone’s internet connection with a laptop, tablet, and smartwatch simultaneously. Which feature should they enable?", a: ["USB tethering", "Bluetooth tethering", "Mobile hotspot", "NFC sharing"], c: 2, e: "A mobile hotspot allows multiple devices to share the smartphone’s internet connection." },
+        { id: "(M4)", author: "Mikyas", q: "A company issues laptops without Ethernet ports. Employees need wired networking, monitors, and USB peripherals while in the office. Which device should be provided?", a: ["USB hub", "Port replicator", "Thunderbolt adapter", "Docking station"], c: 3, e: "A docking station adds functionality and supports multiple peripheral connections." },
+        { id: "(M5)", author: "Mikyas", q: "Which cellular technology standard uses LTE and LTE‑A to provide higher speeds than previous generations?", a: ["3G", "5G", "4G", "WMN"], c: 2, e: "LTE and LTE-Advanced are technologies associated with 4G cellular networking." },
+        { id: "(M6) PBQ", author: "Mikyas", q: "Match the component with the symptom:\nDigitizer, Inverter, CMOS Battery, Lithium-Ion Battery", a: ["A-2, B-1, C-4, D-3", "A-1, B-2, C-4, D-3", "A-2, B-1, C-3, D-4", "A-4, B-3, C-2, D-1"], c: 0, e: "A2: Digitizer (Touchscreen), B1: Inverter (Dim Screen), C4: CMOS (Clock Reset), D3: Li-Ion (Power issues)." },
+
+        // PRATYUSHA
+        { id: "(P1)", author: "Pratyusha", q: "A technician replaces a cracked laptop screen. After reassembly, Wi‑Fi no longer works. Which of the following is the MOST likely cause?", a: ["The digitizer cable is loose", "The Wi‑Fi antenna wires were not reconnected", "The replacement screen is incompatible", "The BIOS requires updating"], c: 1, e: "During screen replacement, Wi‑Fi antenna cables are commonly disconnected and may not be reattached properly." },
+        { id: "(P2)", author: "Pratyusha", q: "Which synchronization method sends data over the internet to remote servers maintained by providers such as Apple or Google?", a: ["Local synchronization", "Mutual authentication", "Cloud synchronization", "Tethering"], c: 2, e: "Cloud synchronization stores and syncs data using online servers." },
+        { id: "(P3)", author: "Pratyusha", q: "Which expansion slot is most commonly used to increase storage on Android tablets?", a: ["NVMe", "MicroSD", "Mini-PCIe", "eMMC"], c: 1, e: "MicroSD cards are commonly used for expandable storage in mobile devices." },
+        { id: "(P4)", author: "Pratyusha", q: "A business traveler wants a secure internet connection without using public Wi‑Fi. Which solution is BEST?", a: ["VPN over public Wi‑Fi", "Mobile hotspot", "NFC data transfer", "Managed switch"], c: 1, e: "A mobile hotspot provides a dedicated internet connection using cellular service." },
+        { id: "(P5)", author: "Pratyusha", q: "Which laptop component commonly uses IPS or TN display technology?", a: ["Inverter", "CCFL backlight", "LCD panel", "Digitizer"], c: 2, e: "IPS and TN are panel technologies used in LCD displays." },
+        { id: "(P6) PBQ", author: "Pratyusha", q: "Match the mobile device to the correct connector type: iPhone 14, Samsung S24, Older Android, iPhone 4.", a: ["i14-Lightning, S24-USB-C, Old-MicroUSB, i4-30pin", "i14-USB-C, S24-Lightning, Old-MicroUSB, i4-30pin", "i14-Lightning, S24-USB-C, Old-Lightning, i4-MicroUSB"], c: 0, e: "iPhone 14 uses Lightning, S24 uses USB-C, Old Androids use Micro-USB, and iPhone 4 uses the 30-pin connector." },
+
+        // HASSAN
+        { id: "(H1)", author: "Hassan", q: "A laptop user has a slim laptop with no built‑in Ethernet port. They want a low-cost solution to connect to wired Ethernet. Which device should IT provide?", a: ["Docking station", "Lightning cable", "Port replicator", "Serial adapter"], c: 2, e: "A port replicator provides additional ports, such as Ethernet, at a lower cost than a full docking station." },
+        { id: "(H2)", author: "Hassan", q: "A company is replacing old mobile phones that do not use SIM cards. Which cellular technology were the old phones MOST likely using?", a: ["LTE", "4G", "CDMA", "5G"], c: 2, e: "Older CDMA phones often did not require SIM cards." },
+        { id: "(H3)", author: "Hassan", q: "A developer wants requests for dev23.company.net directed to the IPv4 address 10.130.25.15. Which DNS record should be created?", a: ["TXT record", "MX record", "AAAA record", "A record"], c: 3, e: "An A record maps a hostname to an IPv4 address." },
+        { id: "(H4)", author: "Hassan", q: "A company wants remote workers to securely access company resources from home. Which foundational infrastructure solution should be implemented?", a: ["VLAN", "VPN", "DNS AAAA records", "Mail exchange records"], c: 1, e: "A Virtual Private Network (VPN) creates a secure encrypted connection to company resources." },
+        { id: "(H5)", author: "Hassan", q: "A user’s Android phone screen was recently replaced. In dark rooms the screen looks normal, but in bright rooms the display becomes dim. Which component is MOST likely faulty?", a: ["Low battery", "Auto-brightness settings", "Faulty ambient light sensor", "Defective display panel"], c: 2, e: "The ambient light sensor automatically adjusts brightness based on surrounding light conditions." },
+        { id: "(H6) PBQ", author: "Hassan", q: "Match the troubleshooting symptom: Touchscreen, Time resets, Dim screen, Overheating, Shuts down moved.", a: ["1-Digitizer, 2-CMOS, 3-Inverter, 4-Li-Ion, 5-Loose Connection", "1-Inverter, 2-CMOS, 3-Digitizer, 4-Li-Ion, 5-Loose Connection", "1-Digitizer, 2-Inverter, 3-CMOS, 4-Li-Ion, 5-Loose Connection"], c: 0, e: "Matches: Touchscreen=Digitizer, Time=CMOS, Dim=Inverter, Overheat=Li-Ion, Shuts down=Loose Connection." }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+
+    function renderQuestion() {
+        const q = questions[currentIdx];
+        document.getElementById("progress-text").innerText = `Question ${currentIdx + 1} of ${questions.length}`;
+        document.getElementById("q-id").innerText = `${q.author} — ${q.id}`;
+        document.getElementById("q-text").innerText = q.q;
+        
+        const list = document.getElementById("options-list");
+        list.innerHTML = "";
+        q.a.forEach((opt, index) => {
+            const div = document.createElement("div");
+            div.className = "option";
+            div.innerText = opt;
+            div.onclick = () => selectOption(div, index);
+            list.appendChild(div);
+        });
+        
+        document.getElementById("explanation").style.display = "none";
+        document.getElementById("next-btn").style.display = "none";
+    }
+
+    function selectOption(el, index) {
+        const q = questions[currentIdx];
+        const options = document.querySelectorAll(".option");
+        
+        if (index === q.c) {
+            el.classList.add("correct");
+            score++;
+        } else {
+            el.classList.add("wrong");
+            options[q.c].classList.add("correct");
+        }
+        
+        options.forEach(o => o.style.pointerEvents = "none");
+        const exp = document.getElementById("explanation");
+        exp.innerHTML = `<strong>Explanation:</strong> ${q.e}`;
+        exp.style.display = "block";
+        document.getElementById("next-btn").style.display = "block";
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if (currentIdx < questions.length) {
+            renderQuestion();
+        } else {
+            document.getElementById("quiz-content").style.display = "none";
+            document.getElementById("result-screen").style.display = "block";
+            document.getElementById("final-score").innerText = `${score} / ${questions.length}`;
+        }
+    }
+
+    renderQuestion();
+</script>
+
+</body>
+</html>

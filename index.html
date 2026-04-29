@@ -55,32 +55,8 @@
 
 <script>
     const questions = [
-        // ZEENAB
-        { id: "(Z1)", author: "Zeenab", q: "Which of the following correctly describes the difference between a port replicator and a docking station?", a: ["A port replicator supports wireless connections; a docking station does not", "A docking station can add new functionality not already built into the laptop; a port replicator only duplicates existing ports", "A port replicator is faster than a docking station", "A docking station is only used with desktop computers"], c: 1, e: "A docking station can add additional functionality such as extra video outputs, expansion slots, or charging capabilities. A port replicator mainly mirrors existing ports." },
-        { id: "(Z2)", author: "Zeenab", q: "A corporate smartphone syncs email successfully on Wi‑Fi but fails when using cellular data. Which of the following is the MOST likely cause?", a: ["Bluetooth is disabled", "An MDM policy blocks synchronization over cellular networks", "The cloud account was deleted", "The device requires a factory reset"], c: 1, e: "Mobile Device Management (MDM) policies can restrict synchronization over cellular networks to reduce security risks or data usage." },
-        { id: "(Z3)", author: "Zeenab", q: "A user wants their Android device to automatically back up photos and app data without using their cellular data plan. Which setting should be enabled?", a: ["Backup over 5G only", "Bluetooth synchronization", "Configure backups to run over Wi‑Fi only", "Disable cloud backups"], c: 2, e: "Wi‑Fi-only backups prevent cellular data usage while still allowing automatic cloud backups." },
-        { id: "(Z4)", author: "Zeenab", q: "An employee reports their company-issued smartphone was stolen. The device contains sensitive company data. Which action should the IT department perform FIRST?", a: ["Disable Wi‑Fi remotely", "Remote wipe", "Reset the employee password", "Revoke SSO access only"], c: 1, e: "A remote wipe removes sensitive data from the stolen device and prevents unauthorized access." },
-        { id: "(Z5)", author: "Zeenab", q: "A Bluetooth headset keeps disconnecting from a laptop. The headset is a Class 2 Bluetooth device. What is the MOST likely cause?", a: ["The headset uses 5 GHz frequencies", "The headset is incompatible with Wi‑Fi 6", "The devices are more than 10 meters apart", "The Bluetooth version is outdated"], c: 2, e: "Bluetooth Class 2 devices typically support a maximum range of about 10 meters (33 feet)." },
-        { id: "(Z6) PBQ", author: "Zeenab", q: "A technician is replacing a damaged miniPCIe wireless card in a laptop. Place the following steps in the correct order:\nA. Power on/Verify connectivity | B. Shut down/Unplug | C. Attach antennas | D. Remove damaged card | E. Insert replacement | F. Install drivers", a: ["B, D, E, C, F, A", "A, B, C, D, E, F", "B, E, D, C, F, A", "D, B, E, C, F, A"], c: 0, e: "Safety first: Shutdown/Unplug (B), Remove (D), Insert (E), Attach Antennas (C), Install Drivers (F), and finally Verify (A)." },
-        
-        // MIKYAS
-        { id: "(M1)", author: "Mikyas", q: "A user wants to transfer files between two smartphones by placing them a few centimeters apart. Which technology should be used?", a: ["Bluetooth", "Wi‑Fi Direct", "NFC", "Infrared"], c: 2, e: "Near Field Communication (NFC) allows very short-range communication by tapping devices together." },
-        { id: "(M2)", author: "Mikyas", q: "Which wireless technology typically requires a PIN during pairing before devices can communicate?", a: ["NFC", "Infrared", "Bluetooth", "RFID"], c: 2, e: "Bluetooth pairing commonly uses a PIN or pairing code for authentication." },
-        { id: "(M3)", author: "Mikyas", q: "A user wants to share their smartphone’s internet connection with a laptop, tablet, and smartwatch simultaneously. Which feature should they enable?", a: ["USB tethering", "Bluetooth tethering", "Mobile hotspot", "NFC sharing"], c: 2, e: "A mobile hotspot allows multiple devices to share the smartphone’s internet connection." },
-        { id: "(M4)", author: "Mikyas", q: "A company issues laptops without Ethernet ports. Employees need wired networking, monitors, and USB peripherals while in the office. Which device should be provided?", a: ["USB hub", "Port replicator", "Thunderbolt adapter", "Docking station"], c: 3, e: "A docking station adds functionality and supports multiple peripheral connections." },
-        { id: "(M5)", author: "Mikyas", q: "Which cellular technology standard uses LTE and LTE‑A to provide higher speeds than previous generations?", a: ["3G", "5G", "4G", "WMN"], c: 2, e: "LTE and LTE-Advanced are technologies associated with 4G cellular networking." },
-                { 
-            id: "(M6) PBQ", 
-            author: "Mikyas", 
-            q: "Match the component with the correct symptom:\n(A) Digitizer, (B) Inverter, (C) CMOS Battery, (D) Lithium-Ion Battery", 
-            a: [
-                "A: Touchscreen issues | B: Dim Screen | C: Clock Resets | D: Power issues", 
-                "A: Dim Screen | B: Touchscreen issues | C: Power issues | D: Clock Resets", 
-                "A: Power issues | B: Clock Resets | C: Dim Screen | D: Touchscreen issues", 
-                "A: Clock Resets | B: Power issues | C: Touchscreen issues | D: Dim Screen"
-            ], 
-            c: 0, 
-            e: "Matching Key:\n• Digitizer = Touchscreen\n• Inverter = Dim Screen (backlight power)\n• CMOS = System Clock\n• Li-Ion = Main Power" 
+      
+           
         },
         // PRATYUSHA
         { id: "(P1)", author: "Pratyusha", q: "A technician replaces a cracked laptop screen. After reassembly, Wi‑Fi no longer works. Which of the following is the MOST likely cause?", a: ["The digitizer cable is loose", "The Wi‑Fi antenna wires were not reconnected", "The replacement screen is incompatible", "The BIOS requires updating"], c: 1, e: "During screen replacement, Wi‑Fi antenna cables are commonly disconnected and may not be reattached properly." },
@@ -89,20 +65,7 @@
         { id: "(P4)", author: "Pratyusha", q: "A business traveler wants a secure internet connection without using public Wi‑Fi. Which solution is BEST?", a: ["VPN over public Wi‑Fi", "Mobile hotspot", "NFC data transfer", "Managed switch"], c: 1, e: "A mobile hotspot provides a dedicated internet connection using cellular service." },
         { id: "(P5)", author: "Pratyusha", q: "Which laptop component commonly uses IPS or TN display technology?", a: ["Inverter", "CCFL backlight", "LCD panel", "Digitizer"], c: 2, e: "IPS and TN are panel technologies used in LCD displays." },
         { id: "(P6) PBQ", author: "Pratyusha", q: "Match the mobile device to the correct connector type: iPhone 14, Samsung S24, Older Android, iPhone 4.", a: ["i14-Lightning, S24-USB-C, Old-MicroUSB, i4-30pin", "i14-USB-C, S24-Lightning, Old-MicroUSB, i4-30pin", "i14-Lightning, S24-USB-C, Old-Lightning, i4-MicroUSB"], c: 0, e: "iPhone 14 uses Lightning, S24 uses USB-C, Old Androids use Micro-USB, and iPhone 4 uses the 30-pin connector." },
-
-        // HASSAN
-        { id: "(H1)", author: "Hassan", q: "A laptop user has a slim laptop with no built‑in Ethernet port. They want a low-cost solution to connect to wired Ethernet. Which device should IT provide?", a: ["Docking station", "Lightning cable", "Port replicator", "Serial adapter"], c: 2, e: "A port replicator provides additional ports, such as Ethernet, at a lower cost than a full docking station." },
-        { id: "(H2)", author: "Hassan", q: "A company is replacing old mobile phones that do not use SIM cards. Which cellular technology were the old phones MOST likely using?", a: ["LTE", "4G", "CDMA", "5G"], c: 2, e: "Older CDMA phones often did not require SIM cards." },
-        { id: "(H3)", author: "Hassan", q: "A developer wants requests for dev23.company.net directed to the IPv4 address 10.130.25.15. Which DNS record should be created?", a: ["TXT record", "MX record", "AAAA record", "A record"], c: 3, e: "An A record maps a hostname to an IPv4 address." },
-        { id: "(H4)", author: "Hassan", q: "A company wants remote workers to securely access company resources from home. Which foundational infrastructure solution should be implemented?", a: ["VLAN", "VPN", "DNS AAAA records", "Mail exchange records"], c: 1, e: "A Virtual Private Network (VPN) creates a secure encrypted connection to company resources." },
-        { id: "(H5)", author: "Hassan", q: "A user’s Android phone screen was recently replaced. In dark rooms the screen looks normal, but in bright rooms the display becomes dim. Which component is MOST likely faulty?", a: ["Low battery", "Auto-brightness settings", "Faulty ambient light sensor", "Defective display panel"], c: 2, e: "The ambient light sensor automatically adjusts brightness based on surrounding light conditions." },
-        { 
-            id: "(H6) PBQ", 
-            author: "Hassan", 
-            q: "A laptop screen is very dim but you can see a faint image with a flashlight. Which component is likely failing?", 
-            a: ["LCD Panel", "Inverter", "Digitizer", "Video Cable"], 
-            c: 1, 
-            e: "The Inverter converts DC to AC power for the backlight. If it fails, the image remains (ghost image) but is not lit up." 
+         
         },
     ];
 

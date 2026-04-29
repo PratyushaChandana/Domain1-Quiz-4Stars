@@ -3,81 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Domain1 Mobile Devices Quiz by Team 4Stars</title>
+    <title>Domain 1 Quiz - Team 4Stars</title>
     <style>
         :root {
-            --primary: #1a73e8;
+            --primary-gold: #d4af37;
+            --board-blue: #0a192f; 
             --success: #28a745;
             --danger: #dc3545;
-            --bg: #f8f9fa;
-            --text: #202124;
+            --circuit-bg: url('https://img.freepik.com/premium-photo/golden-circuitry-abstract-digital-background-looping-board-chips-circuit-glowing-gold-hue_817921-24446.jpg');
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; padding: 20px; line-height: 1.6; }
-        #quiz-container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); max-width: 800px; width: 100%; }
-        .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 25px; padding-bottom: 15px; }
-        .header h1 { margin: 0; font-size: 1.8rem; color: var(--primary); }
-        .author-info { font-weight: bold; color: #5f6368; margin-top: 5px; }
-        .question-meta { font-size: 0.85rem; color: #70757a; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; }
-        .question-text { font-size: 1.2rem; margin-bottom: 25px; font-weight: 600; }
-        .option { display: block; background: #fff; padding: 15px; margin: 12px 0; border-radius: 8px; cursor: pointer; transition: 0.2s; border: 2px solid #dadce0; font-size: 1rem; }
-        .option:hover { background: #f1f3f4; border-color: var(--primary); }
-        .correct { background: #e6f4ea !important; border-color: var(--success) !important; color: #137333; font-weight: bold; }
-        .wrong { background: #fce8e6 !important; border-color: var(--danger) !important; color: #c5221f; }
-        #explanation { display: none; margin-top: 20px; padding: 20px; background: #fff3cd; border-left: 5px solid #ffc107; border-radius: 4px; }
-        #next-btn { display: none; background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 6px; cursor: pointer; float: right; margin-top: 20px; font-weight: bold; }
-        #result-screen { display: none; text-align: center; padding: 50px 0; }
-        .progress { margin-bottom: 20px; font-size: 0.9rem; color: #70757a; }
+        
+        * { box-sizing: border-box; }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: black var(--circuit-bg) no-repeat center center fixed; 
+            background-size: cover;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+            overflow: hidden; 
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .celebration-star {
+            position: fixed;
+            z-index: 9999;
+            font-size: 24px;
+            pointer-events: none;
+            animation: burst 0.8s ease-out forwards;
+        }
+        @keyframes burst {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 0; }
+        }
+
+        #quiz-container { 
+            background: var(--board-blue); 
+            color: #ffffff; 
+            padding: 20px; 
+            border-radius: 16px; 
+            box-shadow: 0 0 40px rgba(10, 25, 47, 0.8), 0 0 20px rgba(212, 175, 55, 0.4); 
+            border: 2px solid var(--primary-gold);
+            max-width: 800px; 
+            width: 95%; 
+            max-height: 94vh; 
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header { text-align: center; border-bottom: 2px solid var(--primary-gold); padding-bottom: 10px; flex-shrink: 0; }
+        .header h1 { margin: 5px 0; font-size: 1.4rem; color: var(--primary-gold); text-transform: uppercase; }
+        .author-info { font-size: 0.85rem; color: #ccd6f6; }
+        
+        #scroll-area {
+            overflow-y: auto;
+            padding: 15px 10px;
+            flex-grow: 1;
+        }
+
+        .progress { font-size: 0.75rem; color: var(--primary-gold); font-weight: bold; }
+        .question-meta { font-size: 0.7rem; color: #8892b0; margin-bottom: 8px; text-transform: uppercase; }
+        .question-text { font-size: 1.05rem; margin-bottom: 15px; font-weight: 600; line-height: 1.4; white-space: pre-line; }
+        
+        .option { 
+            display: block; 
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 12px 15px; 
+            margin: 8px 0; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            border: 1px solid rgba(212, 175, 55, 0.2); 
+            font-size: 0.95rem; 
+        }
+        
+        .option:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--primary-gold); }
+        .correct { background: rgba(40, 167, 69, 0.25) !important; border-color: var(--success) !important; color: #88ffaa; font-weight: bold; }
+        .wrong { background: rgba(220, 53, 69, 0.25) !important; border-color: var(--danger) !important; color: #ff9999; }
+        
+        #explanation { 
+            display: none; 
+            margin-top: 10px; 
+            padding: 12px; 
+            background: rgba(255, 255, 255, 0.05); 
+            border-left: 3px solid var(--primary-gold); 
+            font-size: 0.9rem;
+            color: #ccd6f6;
+        }
+
+        .quiz-footer { border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 10px; height: 55px; flex-shrink: 0; }
+
+        #next-btn { 
+            display: none; 
+            background: var(--primary-gold); 
+            color: var(--board-blue); 
+            border: none; 
+            padding: 10px 25px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            float: right; 
+            font-weight: bold; 
+        }
+
+        #result-screen { display: none; text-align: center; padding: 30px 0; }
+        #scroll-area::-webkit-scrollbar { width: 6px; }
+        #scroll-area::-webkit-scrollbar-thumb { background: var(--primary-gold); border-radius: 10px; }
     </style>
 </head>
 <body>
 
 <div id="quiz-container">
     <div class="header">
-        <h1>Domain1 Mobile Devices Quiz</h1>
-        <div class="author-info">By Team "4Stars" (Hassan, Pratyusha, Zeenab, Mikyas)</div>
+        <h1>🌟 Team 4Stars: Domain 1 Quiz 🌟</h1>
+        <div class="author-info">Hassan, Pratyusha, Zeenab, Mikyas</div>
     </div>
 
-    <div id="quiz-content">
-        <div class="progress" id="progress-text"></div>
-        <div class="question-meta" id="q-id"></div>
-        <div class="question-text" id="q-text"></div>
-        <div id="options-list"></div>
-        <div id="explanation"></div>
-        <button id="next-btn" onclick="nextQuestion()">Next Question &rarr;</button>
+    <div id="quiz-content" style="display:contents;">
+        <div id="scroll-area">
+            <div class="progress" id="progress-text"></div>
+            <div class="question-meta" id="q-id"></div>
+            <div class="question-text" id="q-text"></div>
+            <div id="options-list"></div>
+            <div id="explanation"></div>
+        </div>
+        <div class="quiz-footer">
+            <button id="next-btn" onclick="nextQuestion()">Next Question &rarr;</button>
+        </div>
     </div>
 
     <div id="result-screen">
-        <h2>Quiz Finished!</h2>
-        <p style="font-size: 2rem; font-weight: bold;" id="final-score"></p>
-        <button onclick="location.reload()" style="padding: 10px 25px; cursor:pointer; background:var(--primary); color:white; border:none; border-radius:5px;">Take Quiz Again</button>
+        <h2 style="color: var(--primary-gold);">Diagnostic Complete</h2>
+        <p style="font-size: 2.5rem; font-weight: bold;" id="final-score"></p>
+        <button onclick="location.reload()" style="background:var(--primary-gold); color:var(--board-blue); padding: 12px 25px; border: none; border-radius: 6px; cursor:pointer; font-weight:bold;">REBOOT SYSTEM</button>
     </div>
 </div>
 
 <script>
+    function popStars() {
+        for (let i = 0; i < 25; i++) {
+            const star = document.createElement('div');
+            star.className = 'celebration-star';
+            star.innerHTML = '⭐';
+            star.style.left = '50vw';
+            star.style.top = '50vh';
+            const tx = (Math.random() - 0.5) * 800 + 'px';
+            const ty = (Math.random() - 0.5) * 800 + 'px';
+            star.style.setProperty('--tx', tx);
+            star.style.setProperty('--ty', ty);
+            document.body.appendChild(star);
+            setTimeout(() => star.remove(), 800);
+        }
+    }
+
     const questions = [
-      
-           
-        },
-        // PRATYUSHA
-        { id: "(P1)", author: "Pratyusha", q: "A technician replaces a cracked laptop screen. After reassembly, Wi‑Fi no longer works. Which of the following is the MOST likely cause?", a: ["The digitizer cable is loose", "The Wi‑Fi antenna wires were not reconnected", "The replacement screen is incompatible", "The BIOS requires updating"], c: 1, e: "During screen replacement, Wi‑Fi antenna cables are commonly disconnected and may not be reattached properly." },
-        { id: "(P2)", author: "Pratyusha", q: "Which synchronization method sends data over the internet to remote servers maintained by providers such as Apple or Google?", a: ["Local synchronization", "Mutual authentication", "Cloud synchronization", "Tethering"], c: 2, e: "Cloud synchronization stores and syncs data using online servers." },
-        { id: "(P3)", author: "Pratyusha", q: "Which expansion slot is most commonly used to increase storage on Android tablets?", a: ["NVMe", "MicroSD", "Mini-PCIe", "eMMC"], c: 1, e: "MicroSD cards are commonly used for expandable storage in mobile devices." },
-        { id: "(P4)", author: "Pratyusha", q: "A business traveler wants a secure internet connection without using public Wi‑Fi. Which solution is BEST?", a: ["VPN over public Wi‑Fi", "Mobile hotspot", "NFC data transfer", "Managed switch"], c: 1, e: "A mobile hotspot provides a dedicated internet connection using cellular service." },
-        { id: "(P5)", author: "Pratyusha", q: "Which laptop component commonly uses IPS or TN display technology?", a: ["Inverter", "CCFL backlight", "LCD panel", "Digitizer"], c: 2, e: "IPS and TN are panel technologies used in LCD displays." },
-        { id: "(P6) PBQ", author: "Pratyusha", q: "Match the mobile device to the correct connector type: iPhone 14, Samsung S24, Older Android, iPhone 4.", a: ["i14-Lightning, S24-USB-C, Old-MicroUSB, i4-30pin", "i14-USB-C, S24-Lightning, Old-MicroUSB, i4-30pin", "i14-Lightning, S24-USB-C, Old-Lightning, i4-MicroUSB"], c: 0, e: "iPhone 14 uses Lightning, S24 uses USB-C, Old Androids use Micro-USB, and iPhone 4 uses the 30-pin connector." },
-         
-        },
+        { id: "Z1", author: "Zeenab", q: "Which of the following correctly describes the difference between a port replicator and a docking station?", a: ["A port replicator supports wireless connections; a docking station does not", "A docking station can add new functionality not already built into the laptop; a port replicator only duplicates existing ports", "A port replicator is faster than a docking station", "A docking station is only used with desktop computers"], c: 1, e: "Docking stations add hardware capabilities; replicators only mirror existing ports." },
+        { id: "Z2", author: "Zeenab", q: "A corporate smartphone syncs email successfully on Wi‑Fi but fails when using cellular data. Which is the MOST likely cause?", a: ["Bluetooth is disabled", "An MDM policy blocks synchronization over cellular networks", "The cloud account was deleted", "The device requires a factory reset"], c: 1, e: "MDM policies often restrict high-data syncs to Wi-Fi to save costs." },
+        { id: "Z3", author: "Zeenab", q: "A user wants their Android device to automatically back up photos without using their cellular data plan. Which setting?", a: ["Backup over 5G only", "Bluetooth synchronization", "Configure backups to run over Wi‑Fi only", "Disable cloud backups"], c: 2, e: "Wi-Fi-only settings prevent cellular data overages." },
+        { id: "Z4", author: "Zeenab", q: "A company-issued smartphone with sensitive data was stolen. Which action should IT perform FIRST?", a: ["Disable Wi‑Fi remotely", "Remote wipe", "Reset the employee password", "Revoke SSO access only"], c: 1, e: "Remote wipe is the priority for data security." },
+        { id: "Z5", author: "Zeenab", q: "A Class 2 Bluetooth headset keeps disconnecting from a laptop. What is the MOST likely cause?", a: ["Headset uses 5 GHz frequencies", "Incompatible with Wi‑Fi 6", "The devices are more than 10 meters apart", "The Bluetooth version is outdated"], c: 2, e: "Bluetooth Class 2 range is 10 meters (33 feet)." },
+        { id: "Z6-PBQ", author: "Zeenab", q: "A technician is replacing a damaged miniPCIe wireless card in a laptop. Place the following steps in the correct order:\nA. Power on/Verify connectivity | B. Shut down/Unplug | C. Attach antennas | D. Remove damaged card | E. Insert replacement | F. Install drivers", a: ["B -> D -> E -> C -> F -> A", "A -> B -> C -> D -> E -> F", "B -> E -> D -> C -> F -> A", "D -> B -> E -> C -> F -> A"], c: 0, e: "Safety (B), Removal (D), Install (E), Antennas (C), Software (F), Test (A)." },
+
+        { id: "M1", author: "Mikyas", q: "A user wants to transfer files between two smartphones by placing them a few centimeters apart. Which technology?", a: ["Bluetooth", "Wi‑Fi Direct", "NFC", "Infrared"], c: 2, e: "NFC is for short-range (centimeter) transfers." },
+        { id: "M2", author: "Mikyas", q: "Which wireless technology typically requires a PIN during pairing?", a: ["NFC", "Infrared", "Bluetooth", "RFID"], c: 2, e: "Bluetooth typically requires a PIN for secure pairing." },
+        { id: "M3", author: "Mikyas", q: "Share a smartphone’s internet with multiple devices simultaneously. Which feature?", a: ["USB tethering", "Bluetooth tethering", "Mobile hotspot", "NFC sharing"], c: 2, e: "Mobile hotspots allow multiple Wi-Fi clients." },
+        { id: "M4", author: "Mikyas", q: "Laptops lack Ethernet ports. Employees need wired networking and monitors. Which device?", a: ["USB hub", "Port replicator", "Thunderbolt adapter", "Docking station"], c: 3, e: "Docking stations provide full desktop expansion." },
+        { id: "M5", author: "Mikyas", q: "Which cellular technology standard uses LTE and LTE‑A to provide high speeds?", a: ["3G", "5G", "4G", "WMN"], c: 2, e: "LTE and LTE-A are 4G standards." },
+        { id: "M6-PBQ", author: "Mikyas", q: "MATCHING: Match the laptop component to its symptom:\n(A) Digitizer | (B) Inverter | (C) CMOS Battery | (D) Li-Ion Battery", a: ["A = Touchscreen; B = Dim Screen; C = System Clock; D = Main Power", "A = Dim Screen; B = Touchscreen; C = Main Power; D = System Clock", "A = Main Power; B = System Clock; C = Dim Screen; D = Touchscreen"], c: 0, e: "Digitizer(Touch), Inverter(Dim), CMOS(Clock), Li-Ion(Power)." },
+
+        { id: "P1", author: "Pratyusha", q: "After a cracked laptop screen replacement, Wi‑Fi no longer works. MOST likely cause?", a: ["The digitizer cable is loose", "Wi‑Fi antenna wires not reconnected", "Replacement screen is incompatible", "BIOS requires updating"], c: 1, e: "Wi-Fi antennas route through the lid." },
+        { id: "P2", author: "Pratyusha", q: "Which method sends data to remote servers maintained by Apple or Google?", a: ["Local synchronization", "Mutual authentication", "Cloud synchronization", "Tethering"], c: 2, e: "Cloud sync uses external internet servers." },
+        { id: "P3", author: "Pratyusha", q: "Which expansion slot is most commonly used to increase storage on Android tablets?", a: ["NVMe", "MicroSD", "Mini-PCIe", "eMMC"], c: 1, e: "MicroSD is standard for mobile storage." },
+        { id: "P4", author: "Pratyusha", q: "A business traveler wants a secure internet connection without using public Wi‑Fi. BEST solution?", a: ["VPN over public Wi‑Fi", "Mobile hotspot", "NFC data transfer", "Managed switch"], c: 1, e: "Hotspots use cellular data plans." },
+        { id: "P5", author: "Pratyusha", q: "Which laptop component commonly uses IPS or TN display technology?", a: ["Inverter", "CCFL backlight", "LCD panel", "Digitizer"], c: 2, e: "IPS and TN are LCD panel types." },
+        { id: "P6-PBQ", author: "Pratyusha", q: "MATCHING: Match the mobile device to its correct connector:\n(1) iPhone 14 | (2) Samsung S24 | (3) Older Android Phone | (4) iPhone 4", a: ["1 = Lightning; 2 = USB-C; 3 = Micro; 4 = 30-pin", "1 = USB-C; 2 = Lightning; 3 = Micro; 4 = 30-pin", "1 = Lightning; 2 = USB-C; 3 = Lightning; 4 = Micro"], c: 0, e: "14(Lightning), S24(USB-C), Old Android(Micro), iPhone 4(30-pin)." },
+
+        { id: "H1", author: "Hassan", q: "Low-cost solution for a slim laptop (no Ethernet port) to connect to wired network?", a: ["Docking station", "Lightning cable", "Port replicator", "Serial adapter"], c: 2, e: "Port replicators are cheaper connectivity expansions." },
+        { id: "H2", author: "Hassan", q: "Which cellular technology was MOST likely used by old phones that did not use SIM cards?", a: ["LTE", "4G", "CDMA", "5G"], c: 2, e: "CDMA phones did not require SIM cards." },
+        { id: "H3", author: "Hassan", q: "Direct a hostname to the IPv4 address 10.130.25.15. Which DNS record?", a: ["TXT record", "MX record", "AAAA record", "A record"], c: 3, e: "The 'A' record maps names to IPv4." },
+        { id: "H4", author: "Hassan", q: "Solution for remote workers to securely access company resources from home?", a: ["VLAN", "VPN", "DNS AAAA", "Mail exchange records"], c: 1, e: "VPNs provide encrypted remote access." },
+        { id: "H5", author: "Hassan", q: "Android screen looks normal in dark rooms but dim in bright rooms. Component?", a: ["Low battery", "Auto-brightness settings", "Faulty ambient light sensor", "Defective display panel"], c: 2, e: "The ambient sensor adjusts brightness based on light." },
+        { id: "H6-PBQ", author: "Hassan", q: "MATCHING: Match the troubleshooting symptom to the internal component:\n(1) Touchscreen doesn't respond | (2) System time resets | (3) Very dim screen | (4) Device overheating", a: ["1 = Digitizer; 2 = CMOS; 3 = Inverter; 4 = Li-Ion", "1 = Inverter; 2 = CMOS; 3 = Digitizer; 4 = Li-Ion", "1 = Digitizer; 2 = Inverter; 3 = CMOS; 4 = Li-Ion"], c: 0, e: "Digitizer(Touch), CMOS(Time), Inverter(Light), Li-Ion(Heat)." }
     ];
 
-    let currentIdx = 0;
-    let score = 0;
+    let currentIdx = 0, score = 0;
 
     function renderQuestion() {
         const q = questions[currentIdx];
-        document.getElementById("progress-text").innerText = `Question ${currentIdx + 1} of ${questions.length}`;
-        document.getElementById("q-id").innerText = `${q.author} — ${q.id}`;
+        document.getElementById("progress-text").innerText = `QUESTION ${currentIdx + 1} OF ${questions.length}`;
+        document.getElementById("q-id").innerText = `CONTRIBUTOR: ${q.author} | UNIT: ${q.id}`;
         document.getElementById("q-text").innerText = q.q;
-        
         const list = document.getElementById("options-list");
         list.innerHTML = "";
         q.a.forEach((opt, index) => {
@@ -87,43 +214,40 @@
             div.onclick = () => selectOption(div, index);
             list.appendChild(div);
         });
-        
         document.getElementById("explanation").style.display = "none";
         document.getElementById("next-btn").style.display = "none";
+        document.getElementById("scroll-area").scrollTop = 0;
     }
 
     function selectOption(el, index) {
         const q = questions[currentIdx];
         const options = document.querySelectorAll(".option");
-        
         if (index === q.c) {
             el.classList.add("correct");
             score++;
+            popStars();
         } else {
             el.classList.add("wrong");
             options[q.c].classList.add("correct");
         }
-        
         options.forEach(o => o.style.pointerEvents = "none");
         const exp = document.getElementById("explanation");
-        exp.innerHTML = `<strong>Explanation:</strong> ${q.e}`;
+        exp.innerHTML = `<strong>ANALYSIS:</strong><br>${q.e}`;
         exp.style.display = "block";
         document.getElementById("next-btn").style.display = "block";
     }
 
     function nextQuestion() {
         currentIdx++;
-        if (currentIdx < questions.length) {
-            renderQuestion();
-        } else {
+        if (currentIdx < questions.length) { renderQuestion(); } 
+        else {
             document.getElementById("quiz-content").style.display = "none";
             document.getElementById("result-screen").style.display = "block";
             document.getElementById("final-score").innerText = `${score} / ${questions.length}`;
+            popStars();
         }
     }
-
     renderQuestion();
 </script>
-
 </body>
 </html>

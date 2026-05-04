@@ -69,9 +69,16 @@
         .author-info { font-size: 0.85rem; color: #ccd6f6; }
         
         #scroll-area {
-            overflow-y: auto;
+            overflow-y: hidden;
             padding: 15px 10px;
             flex-grow: 1;
+        }
+
+        @media (max-width: 768px) {
+            #scroll-area {
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
         }
 
         .progress { font-size: 0.75rem; color: var(--primary-gold); font-weight: bold; }

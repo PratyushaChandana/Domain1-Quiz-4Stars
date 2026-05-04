@@ -73,27 +73,25 @@
             padding: 15px 10px;
             flex-grow: 1;
         }
-        
         @media (max-width: 768px) {
-            body {
-                height: auto;
-                min-height: 100vh;
-                overflow-y: auto;
-                align-items: flex-start;
-                padding: 20px 0;
-            }
-            
-            #quiz-container {
-                max-height: none;
-                height: auto;
-            }
+    body {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        align-items: flex-start;
+        padding: 20px 0;
+    }
+    
+    #quiz-container {
+        max-height: none;
+        height: auto;
+    }
 
-            #scroll-area {
-                overflow-y: auto;
-                max-height: 50vh;
-                -webkit-overflow-scrolling: touch;
-            }
-        }
+    #scroll-area {
+        overflow-y: visible;
+        max-height: none;
+    }
+}
 
         .progress { font-size: 0.75rem; color: var(--primary-gold); font-weight: bold; }
         .question-meta { font-size: 0.7rem; color: #8892b0; margin-bottom: 8px; text-transform: uppercase; }
